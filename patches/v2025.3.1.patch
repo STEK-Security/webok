@@ -342,12 +342,13 @@ index d19af54f5d..03c8edf631 100644
    <environment-selector></environment-selector>
  
 -  <div bitTypography="body2">&copy; {{ year }} STEK Inc.</div>
+-  <div bitTypography="body2">{{ version }}</div>
 +  <div bitTypography="body2">STEK Web</div>
-   <div bitTypography="body2">{{ version }}</div>
++  <div bitTypography="body2">{{ version }}</div>
 +  <br />
 +  <div bitTypography="helper" id="vw-disclaimer">
-+    STEK 계정 저장소<br />
-+    (주)스텍의 자산 입니다.
++    STEK Account Vault<br />
++     Property of STEK Inc.
 +  </div>
  </footer>
 diff --git a/apps/web/src/app/layouts/header/web-header.component.html b/apps/web/src/app/layouts/header/web-header.component.html
