@@ -307,7 +307,7 @@ index ff0aea47b9..21ec31a19a 100644
          this.currentUrl = event.url;
  
 -        let title = i18nService.t("bitWebVault");
-+        let title = "Vaultwarden Web";
++        let title = "STEK Web";
  
          if (this.currentUrl.includes("/sm/")) {
            title = i18nService.t("bitSecretsManager");
@@ -341,14 +341,13 @@ index d19af54f5d..03c8edf631 100644
  <footer class="tw-text-center tw-my-12">
    <environment-selector></environment-selector>
  
--  <div bitTypography="body2">&copy; {{ year }} Bitwarden Inc.</div>
-+  <div bitTypography="body2">Vaultwarden Web</div>
+-  <div bitTypography="body2">&copy; {{ year }} STEK Inc.</div>
++  <div bitTypography="body2">STEK Web</div>
    <div bitTypography="body2">{{ version }}</div>
 +  <br />
 +  <div bitTypography="helper" id="vw-disclaimer">
-+    A modified version of the Bitwarden&reg; Web Vault for Vaultwarden (an unofficial rewrite of the
-+    Bitwarden&reg; server).<br />
-+    Vaultwarden is not associated with the Bitwarden&reg; project nor Bitwarden Inc.
++    STEK 계정 저장소<br />
++    (주)스텍의 자산 입니다.
 +  </div>
  </footer>
 diff --git a/apps/web/src/app/layouts/header/web-header.component.html b/apps/web/src/app/layouts/header/web-header.component.html
@@ -362,7 +361,7 @@ index 28d786f2d6..652dcf241c 100644
 -              <a bitMenuItem href="https://bitwarden.com/help/" target="_blank" rel="noreferrer">
 +              <a
 +                bitMenuItem
-+                href="https://github.com/dani-garcia/vaultwarden"
++                href="mailto:hee@stek.kr"
 +                target="_blank"
 +                rel="noreferrer"
 +              >
