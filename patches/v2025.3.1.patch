@@ -28,10 +28,10 @@ index e0a8006081..789efd9264 100644
      </bit-form-field>
      <bit-form-field class="tw-w-1/2" *ngIf="isProvider">
 diff --git a/apps/web/src/app/admin-console/organizations/layouts/organization-layout.component.ts b/apps/web/src/app/admin-console/organizations/layouts/organization-layout.component.ts
-index 0f3ca55da6..4afd35882c 100644
+index ec67a17bce..cf28c679a2 100644
 --- a/apps/web/src/app/admin-console/organizations/layouts/organization-layout.component.ts
 +++ b/apps/web/src/app/admin-console/organizations/layouts/organization-layout.component.ts
-@@ -163,6 +163,7 @@ export class OrganizationLayoutComponent implements OnInit {
+@@ -186,6 +186,7 @@ export class OrganizationLayoutComponent implements OnInit {
    }
  
    canShowBillingTab(organization: Organization): boolean {
@@ -40,10 +40,10 @@ index 0f3ca55da6..4afd35882c 100644
    }
  
 diff --git a/apps/web/src/app/admin-console/organizations/members/members.component.ts b/apps/web/src/app/admin-console/organizations/members/members.component.ts
-index 0bfdde8fc9..2c4132230f 100644
+index 3ce7835404..0455ed8408 100644
 --- a/apps/web/src/app/admin-console/organizations/members/members.component.ts
 +++ b/apps/web/src/app/admin-console/organizations/members/members.component.ts
-@@ -211,11 +211,7 @@ export class MembersComponent extends BaseMembersComponent<OrganizationUserView>
+@@ -215,11 +215,7 @@ export class MembersComponent extends BaseMembersComponent<OrganizationUserView>
              .find((p) => p.organizationId === this.organization.id);
            this.orgResetPasswordPolicyEnabled = resetPasswordPolicy?.enabled;
  
@@ -57,7 +57,7 @@ index 0bfdde8fc9..2c4132230f 100644
            await this.load();
  
 diff --git a/apps/web/src/app/admin-console/organizations/settings/account.component.html b/apps/web/src/app/admin-console/organizations/settings/account.component.html
-index ae1ecb6f3b..5cbb2d0d84 100644
+index 8ae94b08f5..af2bd35e91 100644
 --- a/apps/web/src/app/admin-console/organizations/settings/account.component.html
 +++ b/apps/web/src/app/admin-console/organizations/settings/account.component.html
 @@ -16,7 +16,7 @@
@@ -91,7 +91,7 @@ index 471d89be1c..110a55538b 100644
     loading state here for process reloading. -->
    <div class="tw-p-8 tw-flex">
 -    <img class="new-logo-themed" alt="Bitwarden" />
-+    <img class="new-logo-themed" alt="Vaultwarden" />
++    <img class="new-logo-themed" alt="STEK" />
      <div class="spinner-container tw-justify-center">
        <i
          class="bwi bwi-spinner bwi-spin bwi-3x tw-text-muted"
@@ -105,13 +105,13 @@ index 55e2595e0f..b3d4e1530d 100644
            case "showToast":
 +            if (typeof message.text === "string" && typeof crypto.subtle === "undefined") {
 +              message.title = "This browser requires HTTPS to use the web vault";
-+              message.text = "Check the STEK wiki for details on how to enable it";
++              message.text = "STEK it";
 +            }
              this.toastService._showToast(message);
              break;
            case "convertAccountToKeyConnector":
 diff --git a/apps/web/src/app/auth/settings/change-password.component.html b/apps/web/src/app/auth/settings/change-password.component.html
-index 91144fdfc1..d3dc4410c9 100644
+index 34bb74ee47..96c865d8bc 100644
 --- a/apps/web/src/app/auth/settings/change-password.component.html
 +++ b/apps/web/src/app/auth/settings/change-password.component.html
 @@ -125,5 +125,3 @@
@@ -121,10 +121,10 @@ index 91144fdfc1..d3dc4410c9 100644
 -
 -<app-webauthn-login-settings></app-webauthn-login-settings>
 diff --git a/apps/web/src/app/auth/settings/two-factor/two-factor-setup-authenticator.component.ts b/apps/web/src/app/auth/settings/two-factor/two-factor-setup-authenticator.component.ts
-index de187d2c33..c33f49fd70 100644
+index 030805ed3e..65ee9932db 100644
 --- a/apps/web/src/app/auth/settings/two-factor/two-factor-setup-authenticator.component.ts
 +++ b/apps/web/src/app/auth/settings/two-factor/two-factor-setup-authenticator.component.ts
-@@ -189,11 +189,11 @@ export class TwoFactorSetupAuthenticatorComponent
+@@ -222,11 +222,11 @@ export class TwoFactorSetupAuthenticatorComponent
      new window.QRious({
        element: document.getElementById("qr"),
        value:
@@ -138,6 +138,19 @@ index de187d2c33..c33f49fd70 100644
        size: 160,
      });
    }
+diff --git a/apps/web/src/app/auth/settings/two-factor/two-factor-setup.component.html b/apps/web/src/app/auth/settings/two-factor/two-factor-setup.component.html
+index 4206927772..f77d57c05d 100644
+--- a/apps/web/src/app/auth/settings/two-factor/two-factor-setup.component.html
++++ b/apps/web/src/app/auth/settings/two-factor/two-factor-setup.component.html
+@@ -46,7 +46,7 @@
+     {{ "twoStepLoginPolicyUserWarning" | i18n }}
+   </bit-callout>
+   <bit-item-group [attr.aria-label]="'providers' | i18n">
+-    <bit-item *ngFor="let p of providers" class="tw-py-4">
++    <bit-item *ngFor="let p of providers" class="tw-py-4 providers-2fa-{{ p.type }}">
+       <div slot="start" class="tw-min-w-[120px] tw-flex tw-justify-center">
+         <auth-two-factor-icon class="tw-flex tw-items-center" [provider]="p.type" [name]="p.name" />
+       </div>
 diff --git a/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts b/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts
 index d533badabf..6512ecbd13 100644
 --- a/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts
@@ -183,10 +196,19 @@ index 3b765927c3..393e3bc108 100644
      <app-org-info
        (changedBusinessOwned)="changedOwnedBusiness()"
 diff --git a/apps/web/src/app/billing/organizations/organization-plans.component.ts b/apps/web/src/app/billing/organizations/organization-plans.component.ts
-index 84f2467b1b..e7a4ad1687 100644
+index 59f8dd34c3..d45d2f66e3 100644
 --- a/apps/web/src/app/billing/organizations/organization-plans.component.ts
 +++ b/apps/web/src/app/billing/organizations/organization-plans.component.ts
-@@ -190,13 +190,12 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -12,7 +12,7 @@ import {
+ import { FormBuilder, Validators } from "@angular/forms";
+ import { Router } from "@angular/router";
+ import { Subject, firstValueFrom, takeUntil } from "rxjs";
+-import { debounceTime, map, switchMap } from "rxjs/operators";
++import { map, switchMap } from "rxjs/operators";
+ 
+ import { ManageTaxInformationComponent } from "@bitwarden/angular/billing/components";
+ import { ApiService } from "@bitwarden/common/abstractions/api.service";
+@@ -197,13 +197,12 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
            .organizations$(userId)
            .pipe(getOrganizationById(this.organizationId)),
        );
@@ -204,7 +226,7 @@ index 84f2467b1b..e7a4ad1687 100644
      if (!this.selfHosted) {
        const plans = await this.apiService.getPlans();
        this.passwordManagerPlans = plans.data.filter((plan) => !!plan.PasswordManager);
-@@ -232,6 +231,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -239,6 +238,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
        this.plan = providerDefaultPlan.type;
        this.productTier = providerDefaultPlan.productTier;
      }
@@ -212,7 +234,23 @@ index 84f2467b1b..e7a4ad1687 100644
  
      if (!this.createOrganization) {
        this.upgradeFlowPrefillForm();
-@@ -289,6 +289,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -268,6 +268,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+ 
+     this.loading = false;
+ 
++    /* no sales tax in vaultwarden
+     this.formGroup.valueChanges.pipe(debounceTime(1000), takeUntil(this.destroy$)).subscribe(() => {
+       this.refreshSalesTax();
+     });
+@@ -285,6 +286,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+         additionalServiceAccounts: 0,
+       });
+     }
++    end of sales tax */
+   }
+ 
+   ngOnDestroy() {
+@@ -301,6 +303,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
    }
  
    get upgradeRequiresPaymentMethod() {
@@ -220,7 +258,7 @@ index 84f2467b1b..e7a4ad1687 100644
      return (
        this.organization?.productTierType === ProductTierType.Free &&
        !this.showFree &&
-@@ -324,6 +325,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -336,6 +339,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
    }
  
    get selectableProducts() {
@@ -228,7 +266,7 @@ index 84f2467b1b..e7a4ad1687 100644
      if (this.acceptingSponsorship) {
        const familyPlan = this.passwordManagerPlans.find(
          (plan) => plan.type === PlanType.FamiliesAnnually,
-@@ -355,6 +357,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -367,6 +371,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
    }
  
    get selectablePlans() {
@@ -236,7 +274,7 @@ index 84f2467b1b..e7a4ad1687 100644
      const selectedProductTierType = this.formGroup.controls.productTier.value;
      const result =
        this.passwordManagerPlans?.filter(
-@@ -485,6 +488,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -497,6 +502,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
    }
  
    get planOffersSecretsManager() {
@@ -244,7 +282,7 @@ index 84f2467b1b..e7a4ad1687 100644
      return this.selectedSecretsManagerPlan != null;
    }
  
-@@ -493,6 +497,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -505,6 +511,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
    }
  
    changedProduct() {
@@ -252,7 +290,7 @@ index 84f2467b1b..e7a4ad1687 100644
      const selectedPlan = this.selectablePlans[0];
  
      this.setPlanType(selectedPlan.type);
-@@ -621,9 +626,8 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -633,9 +640,8 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
          const collectionCt = collection.encryptedString;
          const orgKeys = await this.keyService.makeKeyPair(orgKey[1]);
  
@@ -264,7 +302,7 @@ index 84f2467b1b..e7a4ad1687 100644
  
          this.toastService.showToast({
            variant: "success",
-@@ -771,7 +775,9 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -779,7 +785,9 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
      request.billingEmail = this.formGroup.controls.billingEmail.value;
      request.initiationPath = "New organization creation in-product";
      request.keys = new OrganizationKeysRequest(orgKeys[0], orgKeys[1].encryptedString);
@@ -274,7 +312,7 @@ index 84f2467b1b..e7a4ad1687 100644
      if (this.selectedPlan.type === PlanType.Free) {
        request.planType = PlanType.Free;
      } else {
-@@ -796,6 +802,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -804,6 +812,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
  
      // Secrets Manager
      this.buildSecretsManagerRequest(request);
@@ -282,7 +320,7 @@ index 84f2467b1b..e7a4ad1687 100644
  
      if (this.hasProvider) {
        const providerRequest = new ProviderOrganizationCreateRequest(
-@@ -857,6 +864,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -865,6 +874,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
    private buildSecretsManagerRequest(
      request: OrganizationCreateRequest | OrganizationUpgradeRequest,
    ): void {
@@ -290,7 +328,7 @@ index 84f2467b1b..e7a4ad1687 100644
      const formValues = this.secretsManagerForm.value;
  
      request.useSecretsManager = this.planOffersSecretsManager && formValues.enabled;
-@@ -875,6 +883,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
+@@ -883,6 +893,7 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
    }
  
    private upgradeFlowPrefillForm() {
@@ -346,13 +384,12 @@ index d19af54f5d..03c8edf631 100644
    <div bitTypography="body2">{{ version }}</div>
 +  <br />
 +  <div bitTypography="helper" id="vw-disclaimer">
-+    STEK
-+    server.<br />
-+    STEK Vault
++    STEK SERVER<br />
++    STEK IT teams
 +  </div>
  </footer>
 diff --git a/apps/web/src/app/layouts/header/web-header.component.html b/apps/web/src/app/layouts/header/web-header.component.html
-index 28d786f2d6..652dcf241c 100644
+index 4b0da4ae56..eebc79db0d 100644
 --- a/apps/web/src/app/layouts/header/web-header.component.html
 +++ b/apps/web/src/app/layouts/header/web-header.component.html
 @@ -63,7 +63,12 @@
@@ -431,6 +468,19 @@ index e859993af3..125b53fdf1 100644
 +    this.showSponsoredFamilies$ = of(false); // disable family Sponsorships in Vaultwarden
    }
  }
+diff --git a/apps/web/src/app/oss-routing.module.ts b/apps/web/src/app/oss-routing.module.ts
+index fc8356505f..217e85568d 100644
+--- a/apps/web/src/app/oss-routing.module.ts
++++ b/apps/web/src/app/oss-routing.module.ts
+@@ -213,7 +213,7 @@ const routes: Routes = [
+         canActivate: [unauthGuardFn()],
+         data: {
+           pageTitle: {
+-            key: "logInToBitwarden",
++            key: "logIn",
+           },
+           pageIcon: VaultIcon,
+         } satisfies RouteDataProperties & AnonLayoutWrapperData,
 diff --git a/apps/web/src/app/platform/web-environment.service.ts b/apps/web/src/app/platform/web-environment.service.ts
 index 1df842d6b3..d61637c92e 100644
 --- a/apps/web/src/app/platform/web-environment.service.ts
@@ -477,6 +527,27 @@ index f56b68cc29..284b916514 100644
 -    {{ "sendAccessTaglineTryToday" | i18n }}
    </p>
  </div>
+diff --git a/apps/web/src/connectors/sso.ts b/apps/web/src/connectors/sso.ts
+index 886742c4c4..7d560656ba 100644
+--- a/apps/web/src/connectors/sso.ts
++++ b/apps/web/src/connectors/sso.ts
+@@ -21,13 +21,14 @@ window.addEventListener("load", () => {
+ });
+ 
+ function initiateWebAppSso(code: string, state: string) {
++  const baseUrl = window.location.href.replace(/\/sso-connector.html.*$/, "");
+   // If we've initiated SSO from somewhere other than the SSO component on the web app, the SSO component will add
+   // a _returnUri to the state variable. Here we're extracting that URI and sending the user there instead of to the SSO component.
+   const returnUri = extractFromRegex(state, "(?<=_returnUri=')(.*)(?=')");
+   if (returnUri) {
+-    window.location.href = window.location.origin + `/#${returnUri}`;
++    window.location.href = baseUrl + `/#${returnUri}`;
+   } else {
+-    window.location.href = window.location.origin + "/#/sso?code=" + code + "&state=" + state;
++    window.location.href = baseUrl + "/#/sso?code=" + code + "&state=" + state;
+   }
+ }
+ 
 diff --git a/apps/web/src/index.html b/apps/web/src/index.html
 index 0b8ea86491..5d98411f46 100644
 --- a/apps/web/src/index.html
@@ -501,7 +572,7 @@ index 0b8ea86491..5d98411f46 100644
        <!-- Note: any changes to this html need to be made in the app.component.html as well -->
        <div class="tw-p-8 tw-flex">
 -        <img class="new-logo-themed" alt="Bitwarden" />
-+        <img class="new-logo-themed" alt="Vaultwarden" />
++        <img class="new-logo-themed" alt="STEK" />
          <div class="spinner-container tw-justify-center">
            <i
              class="bwi bwi-spinner bwi-spin bwi-3x tw-text-muted"
@@ -526,10 +597,10 @@ index 92a1204c60..d9ff4771a3 100644
 +  "background_color": "#FFFFFF"
  }
 diff --git a/apps/web/src/scss/tailwind.css b/apps/web/src/scss/tailwind.css
-index 0ae3c291b5..3a28c7868c 100644
+index d0878ac080..fd146cde8d 100644
 --- a/apps/web/src/scss/tailwind.css
 +++ b/apps/web/src/scss/tailwind.css
-@@ -51,7 +51,7 @@
+@@ -74,7 +74,7 @@
    img.new-logo-themed {
      @apply tw-block;
  
@@ -597,12 +668,16 @@ index f7d86d2a24..75389727d2 100644
    "settings": {
      "eslint.options": {
 diff --git a/jest.config.js b/jest.config.js
-index e8815f92ff..c635c2fc45 100644
+index e8815f92ff..d752a0bb2a 100644
 --- a/jest.config.js
 +++ b/jest.config.js
-@@ -20,9 +20,6 @@ module.exports = {
-     "<rootDir>/apps/cli/jest.config.js",
-     "<rootDir>/apps/desktop/jest.config.js",
+@@ -16,13 +16,7 @@ module.exports = {
+     prefix: "<rootDir>/",
+   }),
+   projects: [
+-    "<rootDir>/apps/browser/jest.config.js",
+-    "<rootDir>/apps/cli/jest.config.js",
+-    "<rootDir>/apps/desktop/jest.config.js",
      "<rootDir>/apps/web/jest.config.js",
 -    "<rootDir>/bitwarden_license/bit-web/jest.config.js",
 -    "<rootDir>/bitwarden_license/bit-cli/jest.config.js",
@@ -633,7 +708,7 @@ index 04dc3b6dfd..2791b0bc17 100644
      this.maxWidth = null;
      this.titleAreaMaxWidth = null;
 diff --git a/libs/auth/src/angular/anon-layout/anon-layout.component.html b/libs/auth/src/angular/anon-layout/anon-layout.component.html
-index 4120ea5900..1adea588fd 100644
+index 1e16dba82c..fe3d9b9ebe 100644
 --- a/libs/auth/src/angular/anon-layout/anon-layout.component.html
 +++ b/libs/auth/src/angular/anon-layout/anon-layout.component.html
 @@ -8,7 +8,7 @@
@@ -643,7 +718,7 @@ index 4120ea5900..1adea588fd 100644
 -    class="tw-w-[128px] tw-block tw-mb-12 [&>*]:tw-align-top"
 +    class="tw-w-[175px] tw-block tw-mb-12 [&>*]:tw-align-top"
    >
-     <bit-icon [icon]="logo"></bit-icon>
+     <bit-icon [icon]="logo" [ariaLabel]="'appLogoLabel' | i18n"></bit-icon>
    </a>
 @@ -55,8 +55,14 @@
        <ng-content select="[slot=environment-selector]"></ng-content>
@@ -654,9 +729,8 @@ index 4120ea5900..1adea588fd 100644
        <div bitTypography="body2">{{ version }}</div>
 +      <br />
 +      <div bitTypography="helper" id="vw-disclaimer">
-+        STEK
-+        server<br />
-+        STEK Vault
++        STEK <br />
++        STEK IT teams
 +      </div>
      </ng-container>
    </footer>
@@ -673,6 +747,19 @@ index b608542b37..4f0b86baa7 100644
        <a bitLink routerLink="/signup">{{ "createAccount" | i18n }}</a>
      </div>
    `,
+diff --git a/libs/auth/src/angular/login/login.component.ts b/libs/auth/src/angular/login/login.component.ts
+index 4ca18b4985..6f6519c2bc 100644
+--- a/libs/auth/src/angular/login/login.component.ts
++++ b/libs/auth/src/angular/login/login.component.ts
+@@ -407,7 +407,7 @@ export class LoginComponent implements OnInit, OnDestroy {
+       this.loginComponentService.showBackButton(false);
+ 
+       this.anonLayoutWrapperDataService.setAnonLayoutWrapperData({
+-        pageTitle: { key: "logInToBitwarden" },
++        pageTitle: { key: "logIn" },
+         pageIcon: this.Icons.VaultIcon,
+         pageSubtitle: null, // remove subtitle when going back to email entry
+       });
 diff --git a/libs/auth/src/angular/registration/registration-start/registration-start.component.html b/libs/auth/src/angular/registration/registration-start/registration-start.component.html
 index de3611a597..23a7324566 100644
 --- a/libs/auth/src/angular/registration/registration-start/registration-start.component.html
@@ -687,10 +774,10 @@ index de3611a597..23a7324566 100644
        <a
          bitLink
 diff --git a/libs/common/src/admin-console/models/domain/organization.ts b/libs/common/src/admin-console/models/domain/organization.ts
-index 6f7ff561f0..8e5da8470a 100644
+index 2e51c54b0a..08a6c7f678 100644
 --- a/libs/common/src/admin-console/models/domain/organization.ts
 +++ b/libs/common/src/admin-console/models/domain/organization.ts
-@@ -365,6 +365,7 @@ export class Organization {
+@@ -366,6 +366,7 @@ export class Organization {
    }
  
    get canAccessIntegrations() {
@@ -699,10 +786,10 @@ index 6f7ff561f0..8e5da8470a 100644
        (this.productTierType === ProductTierType.Teams ||
          this.productTierType === ProductTierType.Enterprise) &&
 diff --git a/libs/components/src/tw-theme.css b/libs/components/src/tw-theme.css
-index 3bc7cd3d81..27e09b876e 100644
+index 24f0b7adaa..dbc755ce27 100644
 --- a/libs/components/src/tw-theme.css
 +++ b/libs/components/src/tw-theme.css
-@@ -12,13 +12,13 @@
+@@ -13,13 +13,13 @@
    --color-background: 255 255 255;
    --color-background-alt: 243 246 249;
    --color-background-alt2: 23 92 219;
@@ -721,7 +808,7 @@ index 3bc7cd3d81..27e09b876e 100644
  
    --color-secondary-100: 230 233 239;
    --color-secondary-300: 168 179 200;
-@@ -54,7 +54,7 @@
+@@ -55,7 +55,7 @@
    --color-text-alt2: 255 255 255;
    --color-text-code: 192 17 118;
  
@@ -743,7 +830,7 @@ index 2df648723f..be4e907625 100644
  ];
  config.safelist = [
 diff --git a/libs/tools/send/send-ui/src/send-form/components/options/send-options.component.html b/libs/tools/send/send-ui/src/send-form/components/options/send-options.component.html
-index 322fea94e3..84ce3785de 100644
+index b9edf8eebc..45edfebb17 100644
 --- a/libs/tools/send/send-ui/src/send-form/components/options/send-options.component.html
 +++ b/libs/tools/send/send-ui/src/send-form/components/options/send-options.component.html
 @@ -13,7 +13,7 @@
@@ -768,10 +855,10 @@ index 637c28a54e..7afcea4e65 100644
  ];
  config.safelist = [
 diff --git a/tsconfig.json b/tsconfig.json
-index fb50f1e703..4f5f81279c 100644
+index c82851d50c..88e3e04aca 100644
 --- a/tsconfig.json
 +++ b/tsconfig.json
-@@ -56,9 +56,7 @@
+@@ -57,9 +57,7 @@
      "apps/browser/src/**/*",
      "libs/*/src/**/*",
      "libs/tools/send/**/src/**/*",
