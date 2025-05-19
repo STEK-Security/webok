@@ -307,7 +307,7 @@ index ff0aea47b9..21ec31a19a 100644
          this.currentUrl = event.url;
  
 -        let title = i18nService.t("bitWebVault");
-+        let title = "STEK Web";
++        let title = "Vaultwarden Web";
  
          if (this.currentUrl.includes("/sm/")) {
            title = i18nService.t("bitSecretsManager");
@@ -346,9 +346,9 @@ index d19af54f5d..03c8edf631 100644
    <div bitTypography="body2">{{ version }}</div>
 +  <br />
 +  <div bitTypography="helper" id="vw-disclaimer">
-+    STEK
-+    home<br />
-+    STEK 
++    A modified version of the Bitwarden&reg; Web Vault for Vaultwarden (an unofficial rewrite of the
++    Bitwarden&reg; server).<br />
++    Vaultwarden is not associated with the Bitwarden&reg; project nor Bitwarden Inc.
 +  </div>
  </footer>
 diff --git a/apps/web/src/app/layouts/header/web-header.component.html b/apps/web/src/app/layouts/header/web-header.component.html
